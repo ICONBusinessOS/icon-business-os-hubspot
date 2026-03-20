@@ -1,0 +1,49 @@
+{
+  "name": "ICON Operations Intelligence for HubSpot",
+  "description": "CRM health scoring, pipeline intelligence, and contact data quality monitoring. Powered by ICON BusinessOS.",
+  "uid": "icon-businessos-hubspot",
+  "scopes": [
+    "crm.objects.contacts.read",
+    "crm.objects.deals.read",
+    "crm.objects.companies.read",
+    "crm.schemas.contacts.read",
+    "crm.schemas.deals.read"
+  ],
+  "public": true,
+  "extensions": {
+    "crm": {
+      "cards": [
+        {
+          "file": "ui/dashboard-card.json",
+          "title": "Operations Intelligence",
+          "display": {
+            "properties": [
+              { "name": "crm_health_score", "label": "CRM Health Score", "dataType": "NUMERIC" },
+              { "name": "pipeline_velocity", "label": "Pipeline Velocity", "dataType": "STRING" },
+              { "name": "data_quality_grade", "label": "Data Quality", "dataType": "STRING" }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "webhooks": {
+    "targetUrl": "https://os.theicon.ai/api/webhooks/hubspot",
+    "subscriptions": [
+      { "eventType": "deal.propertyChange", "propertyName": "dealstage" },
+      { "eventType": "contact.creation" },
+      { "eventType": "deal.creation" }
+    ]
+  },
+  "auth": {
+    "type": "oauth",
+    "redirectUrl": "https://os.theicon.ai/api/oauth/hubspot/callback",
+    "tokenUrl": "https://api.hubapi.com/oauth/v1/token",
+    "authorizeUrl": "https://app.hubspot.com/oauth/authorize"
+  },
+  "links": {
+    "homepage": "https://theicon.ai",
+    "documentation": "https://theicon.ai/docs/hubspot-integration",
+    "support": "https://theicon.ai/support"
+  }
+}
